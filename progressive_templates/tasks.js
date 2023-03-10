@@ -41,3 +41,25 @@ let observer = new IntersectionObserver(function (entries) {
 observer.observe(
     document.querySelector('#services h2')
 )
+
+const progressBar = document.createElement('div');
+
+progressBar.innerHTML = '<div id="progress-bar" style="position: fixed; height: 5px; background-color: orange; width: 0%; z-index: 9999;"></div>'
+
+document.body.prepend(progressBar);
+
+window.addEventListener('scroll', 
+    _.throttle(
+        function () {
+            const scrollPercentage = Math.round(
+                (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+            );
+
+            // console.log(scrollPercentage);
+
+            // document.querySelector('#progress-bar').style.width = scrollPercentage + '%';
+            document.querySelector('#progress-bar').style.width = `${scrollPercentage}%`;
+        },
+        250
+    )
+);
