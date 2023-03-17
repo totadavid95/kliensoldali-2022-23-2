@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a is="confirm-link" href="https://www.elte.hu">ELTE</a>
+
+    <script>
+        class ConfirmLink extends HTMLAnchorElement {
+            constructor() {
+                super();
+
+                console.log(this);
+
+                // console.log(this.href);
+
+                this.addEventListener("click", (event) => {
+                    if(!confirm("sure?")) {
+                        event.preventDefault();
+                    }
+                });
+            }
+
+            
+        }
+
+        customElements.define('confirm-link', ConfirmLink, { extends: "a" });
+    </script>
+</body>
+</html>
