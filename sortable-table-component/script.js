@@ -1,13 +1,17 @@
-class SortableTable {
-    // table = document.querySelector('#t1')
-    constructor(table) {
-        if (!table) {
-            throw new Error('Invalid table');
-        }
+class SortableTable extends HTMLElement {
+    constructor() {
+        super();
 
-        this.table = table;
-        this.thead = table.querySelector('thead');
-        this.tbody = table.querySelector('tbody');
+        // console.log(this);
+        
+        this.table = this.querySelector('table');
+
+        this.thead = this.table.querySelector('thead');
+        this.tbody = this.table.querySelector('tbody');
+
+        if (!this.thead || !this.tbody) {
+            throw Error('Invalid table');
+        }
 
         this.thead.addEventListener('click', this._onClick.bind(this));
     }
@@ -37,12 +41,11 @@ class SortableTable {
     }
 
     _onClick(event) {
-        console.log(this);
+        // console.log(this);
         // console.log(event.target.cellIndex);
     
         this.renderTBody(this.sortRows(event.target.cellIndex, this.getTBodyRows()));
     }
 }
 
-const st1 = new SortableTable(document.querySelector('#t1'));
-const st2 = new SortableTable(document.querySelector('#t2'));
+customElements.define("sortable-table", SortableTable);
