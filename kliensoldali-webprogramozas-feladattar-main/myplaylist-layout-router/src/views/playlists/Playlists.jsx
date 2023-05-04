@@ -4,25 +4,25 @@ import { TrackList } from "./TrackList";
 import { TrackDetails } from "./TrackDetails";
 
 import { examplePlaylists } from "../../domain/playlist";
-import { useState } from "react";
+// import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 export const Playlists = () => {
-  let params = useParams();
-  console.log(params);
-  // const { playlistId } = useParams();
-  const { playlistId } = params;
-  const playlistIdNumber = parseInt(playlistId);
+  // let params = useParams();
+  // console.log(params);
+  const { playlistID, trackID } = useParams();
+  const selectedPlaylistId = parseInt(playlistID);
+  const selectedTrackId = parseInt(trackID);
 
-  const [selectedPlaylistId, setSelectedPlaylistId] = useState(
-    isNaN(playlistIdNumber) ? 1 : playlistIdNumber
-  );
+  // const [selectedPlaylistId, setSelectedPlaylistId] = useState(
+  //   isNaN(playlistIdNumber) ? 1 : playlistIdNumber
+  // );
 
   const playlists = examplePlaylists;
 
   // Computed values
   const selectedPlaylist = playlists.find((pl) => pl.id === selectedPlaylistId);
-  console.log(selectedPlaylist);
+  const selectedTrack = selectedPlaylist?.tracks.find((tr) => tr.id === selectedTrackId);
 
   return (
     <div className="ui container">
@@ -34,11 +34,15 @@ export const Playlists = () => {
           <PlaylistList playlists={playlists} selectedPlaylistId={selectedPlaylistId} />
         </div>
         <div className="ui ten wide column">
-          <TrackList />
+          {selectedPlaylist  &&
+            <TrackList playlist={selectedPlaylist} />
+          }
         </div>
       </div>
       <div className="ui divider"></div>
-      <TrackDetails />
+        {selectedTrack &&
+          <TrackDetails track={selectedTrack} />
+        }
     </div>
   );
 };
