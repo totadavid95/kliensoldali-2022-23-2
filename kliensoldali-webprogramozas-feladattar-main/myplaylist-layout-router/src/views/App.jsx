@@ -12,10 +12,10 @@ export function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/playlists/:playlistId?" element={<Playlists />} />
-          <Route path="/tracks" element={<Tracks />} />
-          <Route path="/search" element={<Search />} />
-          {/* <Route path="/test" element={<Home />} /> */}
+          <Route path="playlists/:playlistID?/:trackID?" element={<Playlists />} />
+          <Route path="tracks" element={<Tracks />} />
+          <Route path="search" element={<Search />} />
+          {/* <Route path="*" element={<Navigate to="/" />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
